@@ -43,3 +43,50 @@ document.querySelectorAll('.project-card, .skill-category').forEach(el => {
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(el);
 });
+
+// Project preview video hover + click modal
+const videoModal = document.getElementById('videoModal');
+const modalVideo = document.getElementById('modalVideo');
+const modalClose = videoModal?.querySelector('.video-modal__close');
+
+function closeVideoModal() {
+    if (!videoModal) return;
+    videoModal.classList.remove('active');
+    videoModal.setAttribute('aria-hidden', 'true');
+    if (modalVideo) {
+        modalVideo.pause();
+        modalVideo.currentTime = 0;
+        modalVideo.removeAttribute('src');
+        modalVideo.load();
+    }
+}
+
+modalClose?.addEventListener('click', closeVideoModal);
+videoModal?.addEventListener('click', (event) => {
+    if (event.target === videoModal) closeVideoModal();
+});
+
+document.querySelectorAll('.project-image').forEach(el => {
+    const preview = el.querySelector('.project-preview');
+    const videoSrc = el.dataset.videoSrc;
+    if (!preview || !videoSrc) return;
+
+    preview.src = videoSrc;
+
+    el.addEventListener('mouseenter', () => {
+        preview.play().catch(() => {});
+    });
+
+    el.addEventListener('mouseleave', () => {
+        preview.pause();
+        preview.currentTime = 0;
+    });
+
+    el.addEventListener('click', () => {
+        if (!videoModal || !modalVideo) return;
+        videoModal.classList.add('active');
+        videoModal.setAttribute('aria-hidden', 'false');
+        modalVideo.src = videoSrc;
+        modalVideo.play().catch(() => {});
+    });
+});
