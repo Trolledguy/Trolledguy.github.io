@@ -83,7 +83,9 @@ body {
 /* ===== Hero Section ===== */
 .hero {
     padding: 6rem 2rem;
-    background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+    background: linear-gradient(135deg, rgb(72, 72, 75) 0%, rgba(0, 0, 0, 0.952) 100%),
+        url("Image/MARA Banner.png") center/cover no-repeat;
+    background-blend-mode: overlay;
 }
 
 .hero-content {
@@ -108,9 +110,9 @@ body {
 
 .hero-text p {
     font-size: 1.2rem;
-    color: #909090;
+    color: #c4c4c4;
     margin-bottom: 2rem;
-    max-width: 500px;
+    max-width: 510px;
 }
 
 .cta-button {
